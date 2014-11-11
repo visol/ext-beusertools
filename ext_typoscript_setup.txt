@@ -1,0 +1,30 @@
+ # Module configuration
+module.tx_beusertools {
+	persistence {
+		storagePid = {$module.tx_beusertools.persistence.storagePid}
+	}
+	view {
+		templateRootPath = {$module.tx_beusertools.view.templateRootPath}
+		partialRootPath = {$module.tx_beusertools.view.partialRootPath}
+		layoutRootPath = {$module.tx_beusertools.view.layoutRootPath}
+	}
+}
+
+
+config.tx_extbase.persistence.classes {
+	Visol\Beusertools\Domain\Model\BackendUser {
+		mapping {
+			tableName = be_users
+			columns {
+				usergroup_cached_list.mapOnProperty = usergroupCachedList
+				usergroup.mapOnProperty = usergroup
+			}
+		}
+	}
+	Visol\Beusertools\Domain\Model\BackendUserGroup {
+		mapping {
+			tableName = be_groups
+		}
+	}
+}
+

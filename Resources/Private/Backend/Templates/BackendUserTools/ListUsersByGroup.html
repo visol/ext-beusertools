@@ -1,0 +1,51 @@
+<f:layout name="Default" />
+
+<f:section name="content">
+	<f:flashMessages renderMode="div" />
+
+	<h1>{f:translate(key: 'submoduleTitle_listUsersByGroupAction')}</h1>
+
+	<f:form action="exportUsersByGroup">
+		<f:form.submit value="{f:translate(key: 'buttonExportAsExcel')}" />
+	</f:form>
+
+	<f:for each="{backendUserGroups}" as="backendUserGroup">
+		<f:if condition="{backendUserGroup.users}">
+			<h3>{backendUserGroup.group.title} (<f:count>{backendUserGroup.users}</f:count> {f:translate(key: 'users')})</h3>
+			<table border="0" cellpadding="0" cellspacing="0" class="typo3-dblist">
+				<tr class="t3-row-header">
+					<td width="300">{f:translate(key: 'tableHeaderUsername')}</td>
+					<td>{f:translate(key: 'tableHeaderRealname')}</td>
+				</tr>
+				<f:for each="{backendUserGroup.users}" as="user">
+					<tr class="db_list_normal">
+						<td class="t3-title-column">{user.username}</td>
+						<td>{user.realName}</td>
+					</tr>
+				</f:for>
+			</table>
+		</f:if>
+	</f:for>
+
+	<h1>Test</h1>
+
+	<table border="0" cellpadding="0" cellspacing="0" class="typo3-dblist">
+		<tr class="t3-row-header">
+			<td width="300">{f:translate(key: 'tableHeaderUsername')}</td>
+			<td>{f:translate(key: 'tableHeaderRealname')}</td>
+			<td>{f:translate(key: 'tableHeaderUsergroups')}</td>
+		</tr>
+		<f:for each="{backendUserGroups}" as="backendUserGroup">
+			<f:if condition="{backendUserGroup.users}">
+				<f:for each="{backendUserGroup.users}" as="user">
+					<tr class="db_list_normal">
+						<td class="t3-title-column">{user.username}</td>
+						<td>{user.realName}</td>
+						<td>{backendUserGroup.group.title}</td>
+					</tr>
+				</f:for>
+			</f:if>
+		</f:for>
+	</table>
+
+</f:section>

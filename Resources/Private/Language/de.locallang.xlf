@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" date="2014-11-07T19:45:11Z" product-name="beusertools">
+		<header/>
+		<body>
+			<trans-unit id="submoduleTitle_listUsersByGroupAction">
+				<source>List users by group</source>
+				<target>Benutzerliste nach Gruppen</target>
+			</trans-unit>
+			<trans-unit id="submoduleTitle_listUsersAction">
+				<source>List all users</source>
+				<target>Liste aller Benutzer</target>
+			</trans-unit>
+			<trans-unit id="users">
+				<source>users</source>
+				<target>Benutzer</target>
+			</trans-unit>
+			<trans-unit id="tableHeaderUsername">
+				<source>User name</source>
+				<target>Benutzername</target>
+			</trans-unit>
+			<trans-unit id="tableHeaderRealname">
+				<source>Name</source>
+				<target>Name</target>
+			</trans-unit>
+			<trans-unit id="tableHeaderUsergroups">
+				<source>User groups</source>
+				<target>Benutzergruppen</target>
+			</trans-unit>
+			<trans-unit id="tableHeaderUsergroup">
+				<source>User group</source>
+				<target>Benutzergruppe</target>
+			</trans-unit>
+			<trans-unit id="buttonExportAsExcel">
+				<source>Export as Excel XML</source>
+				<target>Als Excel-XML exportieren</target>
+			</trans-unit>
+
+		</body>
+	</file>
+</xliff>

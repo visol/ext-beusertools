@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<data-set xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<f:for each="{backendUserGroups}" as="backendUserGroup">
+		<f:if condition="{backendUserGroup.users}">
+			<f:for each="{backendUserGroup.users}" as="user">
+	<record>
+		<Username>{user.username}</Username>
+		<Name>{user.realName}</Name>
+		<UserGroup>{backendUserGroup.group.title}</UserGroup>
+	</record>
+			</f:for>
+		</f:if>
+	</f:for>
+</data-set>

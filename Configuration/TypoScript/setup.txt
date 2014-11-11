@@ -1,0 +1,12 @@
+
+ # Module configuration
+module.tx_beusertools {
+	persistence {
+		storagePid = {$module.tx_beusertools.persistence.storagePid}
+	}
+	view {
+		templateRootPath = {$module.tx_beusertools.view.templateRootPath}
+		partialRootPath = {$module.tx_beusertools.view.partialRootPath}
+		layoutRootPath = {$module.tx_beusertools.view.layoutRootPath}
+	}
+}
