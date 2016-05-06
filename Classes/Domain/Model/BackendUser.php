@@ -21,12 +21,12 @@ namespace Visol\Beusertools\Domain\Model;
 class BackendUser extends \TYPO3\CMS\Extbase\Domain\Model\BackendUser {
 
 	/**
-	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Visol\Newscatinvite\Domain\Model\BackendUserGroup>
+	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Visol\Beusertools\Domain\Model\BackendUserGroup>
 	 */
 	protected $usergroupCachedList;
 
 	/**
-	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Visol\Newscatinvite\Domain\Model\BackendUserGroup>
+	 * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Visol\Beusertools\Domain\Model\BackendUserGroup>
 	 */
 	protected $usergroup;
 

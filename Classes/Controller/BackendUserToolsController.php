@@ -62,7 +62,7 @@ class BackendUserToolsController extends \TYPO3\CMS\Extbase\Mvc\Controller\Actio
 		$backendUserGroupsWithUsers = array();
 		$i = 0;
 		foreach ($backendUserGroups as $backendUserGroup) {
-			/** @var $backendUserGroup \TYPO3\CMS\Extbase\Domain\Model\BackendUser */
+			/** @var $backendUserGroup \Visol\Beusertools\Domain\Model\BackendUserGroup */
 			$backendUserGroupsWithUsers[$backendUserGroup->getUid()]['group'] = $backendUserGroup;
 			$backendUserGroupsWithUsers[$backendUserGroup->getUid()]['users'] = $this->backendUserRepository->findByUsergroups(array($backendUserGroup->getUid()));
 			$i++;
@@ -80,7 +80,7 @@ class BackendUserToolsController extends \TYPO3\CMS\Extbase\Mvc\Controller\Actio
 		$backendUserGroupsWithUsers = array();
 		$i = 0;
 		foreach ($backendUserGroups as $backendUserGroup) {
-			/** @var $backendUserGroup \TYPO3\CMS\Extbase\Domain\Model\BackendUser */
+            /** @var $backendUserGroup \Visol\Beusertools\Domain\Model\BackendUserGroup */
 			$backendUserGroupsWithUsers[$backendUserGroup->getUid()]['group'] = $backendUserGroup;
 			$backendUserGroupsWithUsers[$backendUserGroup->getUid()]['users'] = $this->backendUserRepository->findByUsergroups(array($backendUserGroup->getUid()));
 			$i++;
