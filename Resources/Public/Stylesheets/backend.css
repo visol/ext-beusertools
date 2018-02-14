@@ -1,9 +1,9 @@
 
-table.typo3-dblist tr td.col-icon {
-	vertical-align: top;
+.beusertools-table td {
+    vertical-align: top !important;
 }
 
-td ul {
-	margin: 0;
-	padding: 0;
+.beusertools-table td ul {
+    margin: 0;
+    padding: 0;
 }
