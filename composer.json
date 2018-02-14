@@ -3,5 +3,5 @@
   "type": "typo3-cms-extension",
   "description": "Backend User Tools",
   "homepage": "https://github.com/visol/ext-beusertools",
-  "license": ["GPL-2.0+"]
+  "license": ["GPL-2.0-or-later"]
 }
