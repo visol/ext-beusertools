@@ -3,5 +3,19 @@
   "type": "typo3-cms-extension",
   "description": "Backend User Tools",
   "homepage": "https://github.com/visol/ext-beusertools",
-  "license": ["GPL-2.0-or-later"]
+  "authors": [
+    {
+      "name": "Lorenz Ulrich",
+      "role": "Developer"
+    }
+  ],
+  "license": ["GPL-2.0-or-later"],
+  "require": {
+    "typo3/cms-core": "^8.7.1"
+  },
+  "autoload": {
+    "psr-4": {
+      "Visol\\Beusertools\\": "Classes"
+    }
+  }
 }

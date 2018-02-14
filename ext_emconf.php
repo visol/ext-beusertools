@@ -10,25 +10,25 @@
  * "version" and "dependencies" must not be touched!
  ***************************************************************/
 
-$EM_CONF[$_EXTKEY] = array(
-	'title' => 'Backend User Tools',
-	'description' => 'Tools to allow normal backend users manage backend users',
-	'category' => 'module',
-	'author' => 'Lorenz Ulrich',
-	'author_email' => 'lorenz.ulrich@visol.ch',
-	'state' => 'stable',
-	'internal' => '',
-	'uploadfolder' => '0',
-	'createDirs' => '',
-	'clearCacheOnLoad' => 0,
-	'version' => '1.0.0',
-	'constraints' => array(
-		'depends' => array(
-			'typo3' => '6.2.0-6.2.99',
-		),
-		'conflicts' => array(
-		),
-		'suggests' => array(
-		),
-	),
-);
+$EM_CONF[$_EXTKEY] = [
+    'title' => 'Backend User Tools',
+    'description' => 'Tools to allow normal backend users manage backend users',
+    'category' => 'module',
+    'author' => 'Lorenz Ulrich',
+    'author_email' => 'lorenz.ulrich@visol.ch',
+    'state' => 'stable',
+    'internal' => '',
+    'uploadfolder' => '0',
+    'createDirs' => '',
+    'clearCacheOnLoad' => 0,
+    'version' => '2.0.0',
+    'constraints' => [
+        'depends' => [
+            'typo3' => '8.7.0-8.99.99',
+        ],
+        'conflicts' => [
+        ],
+        'suggests' => [
+        ],
+    ],
+];
