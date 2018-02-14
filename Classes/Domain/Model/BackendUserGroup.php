@@ -1,4 +1,5 @@
 <?php
+
 namespace Visol\Beusertools\Domain\Model;
 
 /**
@@ -18,6 +19,7 @@ namespace Visol\Beusertools\Domain\Model;
  *
  * @api
  */
-class BackendUserGroup extends \TYPO3\CMS\Extbase\Domain\Model\BackendUserGroup {
+class BackendUserGroup extends \TYPO3\CMS\Extbase\Domain\Model\BackendUserGroup
+{
 
 }

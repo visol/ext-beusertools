@@ -1,4 +1,5 @@
 <?php
+
 namespace Visol\Beusertools\Controller;
 
 
@@ -30,86 +31,83 @@ namespace Visol\Beusertools\Controller;
 /**
  * InvitationController
  */
-class BackendUserToolsController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController {
+class BackendUserToolsController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
+{
 
-	/**
-	 * backendUserGroupRepository
-	 *
-	 * @var \Visol\Beusertools\Domain\Repository\BackendUserGroupRepository
-	 * @inject
-	 */
-	protected $backendUserGroupRepository;
+    /**
+     * backendUserGroupRepository
+     *
+     * @var \Visol\Beusertools\Domain\Repository\BackendUserGroupRepository
+     * @inject
+     */
+    protected $backendUserGroupRepository;
 
-	/**
-	 * backendUserRepository
-	 *
-	 * @var \Visol\Beusertools\Domain\Repository\BackendUserRepository
-	 * @inject
-	 */
-	protected $backendUserRepository;
+    /**
+     * backendUserRepository
+     *
+     * @var \Visol\Beusertools\Domain\Repository\BackendUserRepository
+     * @inject
+     */
+    protected $backendUserRepository;
 
+    /**
+     * action listUsersByGroup
+     *
+     * @return void
+     */
+    public function listUsersByGroupAction()
+    {
 
-
-
-	/**
-	 * action listUsersByGroup
-	 *
-	 * @return void
-	 */
-	public function listUsersByGroupAction() {
-
-		$backendUserGroups = $this->backendUserGroupRepository->findAll()->toArray();
-		$backendUserGroupsWithUsers = array();
-		$i = 0;
-		foreach ($backendUserGroups as $backendUserGroup) {
-			/** @var $backendUserGroup \Visol\Beusertools\Domain\Model\BackendUserGroup */
-			$backendUserGroupsWithUsers[$backendUserGroup->getUid()]['group'] = $backendUserGroup;
-			$backendUserGroupsWithUsers[$backendUserGroup->getUid()]['users'] = $this->backendUserRepository->findByUsergroups(array($backendUserGroup->getUid()));
-			$i++;
-		}
-		$this->view->assign('backendUserGroups', $backendUserGroupsWithUsers);
-
-	}
-
-	/**
-	 *
-	 */
-	public function exportUsersByGroupAction() {
-
-		$backendUserGroups = $this->backendUserGroupRepository->findAll()->toArray();
-		$backendUserGroupsWithUsers = array();
-		$i = 0;
-		foreach ($backendUserGroups as $backendUserGroup) {
+        $backendUserGroups = $this->backendUserGroupRepository->findAll()->toArray();
+        $backendUserGroupsWithUsers = [];
+        $i = 0;
+        foreach ($backendUserGroups as $backendUserGroup) {
             /** @var $backendUserGroup \Visol\Beusertools\Domain\Model\BackendUserGroup */
-			$backendUserGroupsWithUsers[$backendUserGroup->getUid()]['group'] = $backendUserGroup;
-			$backendUserGroupsWithUsers[$backendUserGroup->getUid()]['users'] = $this->backendUserRepository->findByUsergroups(array($backendUserGroup->getUid()));
-			$i++;
-		}
-		$this->view->assign('backendUserGroups', $backendUserGroupsWithUsers);
-		$content = $this->view->render();
+            $backendUserGroupsWithUsers[$backendUserGroup->getUid()]['group'] = $backendUserGroup;
+            $backendUserGroupsWithUsers[$backendUserGroup->getUid()]['users'] = $this->backendUserRepository->findByUsergroups([$backendUserGroup->getUid()]);
+            $i++;
+        }
+        $this->view->assign('backendUserGroups', $backendUserGroupsWithUsers);
+    }
 
-		header('Content-Description: File Transfer');
-		header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-		$formattedDate = date("Y-m-d");
-		header('Content-Disposition: filename=export-' . $formattedDate . '.xml');
-		header('Content-Transfer-Encoding: binary');
-		header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
-		header('Expires: 0');
-		header('Pragma: public');
-		echo($content);
-		exit;
+    /**
+     *
+     */
+    public function exportUsersByGroupAction()
+    {
 
-	}
+        $backendUserGroups = $this->backendUserGroupRepository->findAll()->toArray();
+        $backendUserGroupsWithUsers = [];
+        $i = 0;
+        foreach ($backendUserGroups as $backendUserGroup) {
+            /** @var $backendUserGroup \Visol\Beusertools\Domain\Model\BackendUserGroup */
+            $backendUserGroupsWithUsers[$backendUserGroup->getUid()]['group'] = $backendUserGroup;
+            $backendUserGroupsWithUsers[$backendUserGroup->getUid()]['users'] = $this->backendUserRepository->findByUsergroups([$backendUserGroup->getUid()]);
+            $i++;
+        }
+        $this->view->assign('backendUserGroups', $backendUserGroupsWithUsers);
+        $content = $this->view->render();
 
-	/**
-	 * action listUsers
-	 *
-	 * @return void
-	 */
-	public function listUsersAction() {
-		$backendUsers = $this->backendUserRepository->findAll();
-		$this->view->assign('backendUsers', $backendUsers);
-	}
+        header('Content-Description: File Transfer');
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        $formattedDate = date("Y-m-d");
+        header('Content-Disposition: filename=export-' . $formattedDate . '.xml');
+        header('Content-Transfer-Encoding: binary');
+        header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+        header('Expires: 0');
+        header('Pragma: public');
+        echo($content);
+        exit;
+    }
 
-
+    /**
+     * action listUsers
+     *
+     * @return void
+     */
+    public function listUsersAction()
+    {
+        $backendUsers = $this->backendUserRepository->findAll();
+        $this->view->assign('backendUsers', $backendUsers);
+    }
 }

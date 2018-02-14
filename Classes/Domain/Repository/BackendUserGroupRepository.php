@@ -1,4 +1,5 @@
 <?php
+
 namespace Visol\Beusertools\Domain\Repository;
 
 /**
@@ -18,10 +19,10 @@ namespace Visol\Beusertools\Domain\Repository;
  *
  * @api
  */
-class BackendUserGroupRepository extends \TYPO3\CMS\Extbase\Domain\Repository\BackendUserGroupRepository {
+class BackendUserGroupRepository extends \TYPO3\CMS\Extbase\Domain\Repository\BackendUserGroupRepository
+{
 
-	protected $defaultOrderings = array(
-		'title' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING
-	);
-
+    protected $defaultOrderings = [
+        'title' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING
+    ];
 }
