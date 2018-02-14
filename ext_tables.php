@@ -18,7 +18,7 @@ if (TYPO3_MODE === 'BE') {
         ],
         [
             'access' => 'user,group',
-            'icon' => 'EXT:' . $_EXTKEY . '/ext_icon.gif',
+            'icon' => 'EXT:' . $_EXTKEY . '/ext_icon.svg',
             'labels' => 'LLL:EXT:' . $_EXTKEY . '/Resources/Private/Language/locallang_userlisting.xlf',
         ]
     );
