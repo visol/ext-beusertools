@@ -4,7 +4,7 @@
     <h1>{f:translate(key: 'submoduleTitle_listUsersByGroupAction')}</h1>
 
     <f:form action="exportUsersByGroup">
-        <f:form.submit value="{f:translate(key: 'buttonExportAsExcel')}"/>
+        <f:form.submit value="{f:translate(key: 'buttonExportAsExcel')}" class="btn btn-primary" />
     </f:form>
 
     <f:for each="{backendUserGroups}" as="backendUserGroup">
