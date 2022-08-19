@@ -2,7 +2,10 @@
 
 namespace Visol\Beusertools\Controller;
 
-
+use Psr\Http\Message\ResponseInterface;
+use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
+use Visol\Beusertools\Domain\Repository\BackendUserGroupRepository;
+use Visol\Beusertools\Domain\Repository\BackendUserRepository;
 /***************************************************************
  *
  *  Copyright notice
@@ -27,18 +30,16 @@ namespace Visol\Beusertools\Controller;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-
 /**
  * InvitationController
  */
-class BackendUserToolsController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
+class BackendUserToolsController extends ActionController
 {
 
     /**
      * backendUserGroupRepository
      *
      * @var \Visol\Beusertools\Domain\Repository\BackendUserGroupRepository
-     * @inject
      */
     protected $backendUserGroupRepository;
 
@@ -46,7 +47,6 @@ class BackendUserToolsController extends \TYPO3\CMS\Extbase\Mvc\Controller\Actio
      * backendUserRepository
      *
      * @var \Visol\Beusertools\Domain\Repository\BackendUserRepository
-     * @inject
      */
     protected $backendUserRepository;
 
@@ -55,7 +55,7 @@ class BackendUserToolsController extends \TYPO3\CMS\Extbase\Mvc\Controller\Actio
      *
      * @return void
      */
-    public function listUsersByGroupAction()
+    public function listUsersByGroupAction(): ResponseInterface
     {
 
         $backendUserGroups = $this->backendUserGroupRepository->findAll()->toArray();
@@ -68,6 +68,7 @@ class BackendUserToolsController extends \TYPO3\CMS\Extbase\Mvc\Controller\Actio
             $i++;
         }
         $this->view->assign('backendUserGroups', $backendUserGroupsWithUsers);
+        return $this->htmlResponse();
     }
 
     /**
@@ -105,9 +106,20 @@ class BackendUserToolsController extends \TYPO3\CMS\Extbase\Mvc\Controller\Actio
      *
      * @return void
      */
-    public function listUsersAction()
+    public function listUsersAction(): ResponseInterface
     {
         $backendUsers = $this->backendUserRepository->findAll();
         $this->view->assign('backendUsers', $backendUsers);
+        return $this->htmlResponse();
+    }
+
+    public function injectBackendUserGroupRepository(BackendUserGroupRepository $backendUserGroupRepository): void
+    {
+        $this->backendUserGroupRepository = $backendUserGroupRepository;
+    }
+
+    public function injectBackendUserRepository(BackendUserRepository $backendUserRepository): void
+    {
+        $this->backendUserRepository = $backendUserRepository;
     }
 }

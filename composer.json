@@ -1,21 +1,28 @@
 {
-  "name": "visol/beusertools",
-  "type": "typo3-cms-extension",
-  "description": "Backend User Tools",
-  "homepage": "https://github.com/visol/ext-beusertools",
-  "authors": [
-    {
-      "name": "Lorenz Ulrich",
-      "role": "Developer"
-    }
-  ],
-  "license": ["GPL-2.0-or-later"],
-  "require": {
-    "typo3/cms-core": "^8.7.1"
-  },
-  "autoload": {
-    "psr-4": {
-      "Visol\\Beusertools\\": "Classes"
-    }
-  }
+	"name": "visol/beusertools",
+	"type": "typo3-cms-extension",
+	"description": "Backend User Tools",
+	"homepage": "https://github.com/visol/ext-beusertools",
+	"authors": [
+		{
+			"name": "Lorenz Ulrich",
+			"role": "Developer"
+		}
+	],
+	"license": [
+		"GPL-2.0-or-later"
+	],
+	"extra": {
+		"typo3/cms": {
+			"extension-key": "beusertools"
+		}
+	},
+	"autoload": {
+		"psr-4": {
+			"Visol\\Beusertools\\": "Classes"
+		}
+	},
+	"require": {
+		"typo3/cms-core": "^11.5"
+	}
 }

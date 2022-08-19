@@ -1,25 +1,24 @@
 <?php
-if (!defined('TYPO3_MODE')) {
+use Visol\Beusertools\Controller\BackendUserToolsController;
+use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
+if (!defined('TYPO3')) {
     die('Access denied.');
 }
 
-if (TYPO3_MODE === 'BE') {
-
-    /**
-     * Registers a Backend Module
-     */
-    \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerModule(
-        'Visol.' . $_EXTKEY,
-        'web',     // Make module a submodule of 'user'
-        'userlisting',    // Submodule key
-        '',                        // Position
-        [
-            'BackendUserTools' => 'listUsersByGroup,listUsers,exportUsersByGroup',
-        ],
-        [
-            'access' => 'user,group',
-            'icon' => 'EXT:' . $_EXTKEY . '/ext_icon.svg',
-            'labels' => 'LLL:EXT:' . $_EXTKEY . '/Resources/Private/Language/locallang_userlisting.xlf',
-        ]
-    );
-}
+/**
+ * Registers a Backend Module
+ */
+ExtensionUtility::registerModule(
+    'Beusertools',
+    'web',     // Make module a submodule of 'user'
+    'userlisting',    // Submodule key
+    '',                        // Position
+    [
+        BackendUserToolsController::class => 'listUsersByGroup,listUsers,exportUsersByGroup',
+    ],
+    [
+        'access' => 'user,group',
+        'icon' => 'EXT:beusertools/Resources/Public/Icons/icon.svg',
+        'labels' => 'LLL:EXT:beusertools/Resources/Private/Language/locallang_userlisting.xlf',
+    ]
+);

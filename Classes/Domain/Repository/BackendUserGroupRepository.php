@@ -2,6 +2,7 @@
 
 namespace Visol\Beusertools\Domain\Repository;
 
+use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 /**
  * This file is part of the TYPO3 CMS project.
  *
@@ -23,6 +24,6 @@ class BackendUserGroupRepository extends \TYPO3\CMS\Extbase\Domain\Repository\Ba
 {
 
     protected $defaultOrderings = [
-        'title' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING
+        'title' => QueryInterface::ORDER_ASCENDING
     ];
 }

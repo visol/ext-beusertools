@@ -14,6 +14,7 @@ namespace Visol\Beusertools\Domain\Repository;
  *
  * The TYPO3 project - inspiring people to share!
  */
+use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
 
 /**
@@ -25,7 +26,7 @@ class BackendUserRepository extends \TYPO3\CMS\Extbase\Domain\Repository\Backend
 {
 
     protected $defaultOrderings = [
-        'username' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING
+        'username' => QueryInterface::ORDER_ASCENDING
     ];
 
     public function findAll()
@@ -33,10 +34,7 @@ class BackendUserRepository extends \TYPO3\CMS\Extbase\Domain\Repository\Backend
         $query = $this->createQuery();
         $query->matching(
             $query->logicalNot(
-                $query->logicalOr(
-                    $query->equals('isAdministrator', true),
-                    $query->like('userName', '_cli%')
-                )
+                $query->logicalOr([$query->equals('isAdministrator', true), $query->like('userName', '_cli%')])
             )
         );
         return $query->execute();
