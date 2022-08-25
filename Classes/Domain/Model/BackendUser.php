@@ -24,12 +24,12 @@ class BackendUser extends \TYPO3\CMS\Extbase\Domain\Model\BackendUser
 {
 
     /**
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Visol\Beusertools\Domain\Model\BackendUserGroup>
+     * @var ObjectStorage<BackendUserGroup>
      */
     protected $usergroupCachedList;
 
     /**
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<Visol\Beusertools\Domain\Model\BackendUserGroup>
+     * @var ObjectStorage<BackendUserGroup>
      */
     protected $usergroup;
 
@@ -43,7 +43,7 @@ class BackendUser extends \TYPO3\CMS\Extbase\Domain\Model\BackendUser
     }
 
     /**
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage
+     * @return ObjectStorage
      */
     public function getUsergroupCachedList()
     {
@@ -51,7 +51,7 @@ class BackendUser extends \TYPO3\CMS\Extbase\Domain\Model\BackendUser
     }
 
     /**
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage
+     * @return ObjectStorage
      */
     public function getUsergroup()
     {

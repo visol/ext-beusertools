@@ -39,14 +39,14 @@ class BackendUserToolsController extends ActionController
     /**
      * backendUserGroupRepository
      *
-     * @var \Visol\Beusertools\Domain\Repository\BackendUserGroupRepository
+     * @var BackendUserGroupRepository
      */
     protected $backendUserGroupRepository;
 
     /**
      * backendUserRepository
      *
-     * @var \Visol\Beusertools\Domain\Repository\BackendUserRepository
+     * @var BackendUserRepository
      */
     protected $backendUserRepository;
 

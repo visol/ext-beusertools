@@ -9,22 +9,3 @@ module.tx_beusertools {
 		layoutRootPaths.10 = {$module.tx_beusertools.view.layoutRootPath}
 	}
 }
-
-
-config.tx_extbase.persistence.classes {
-	Visol\Beusertools\Domain\Model\BackendUser {
-		mapping {
-			tableName = be_users
-			columns {
-				usergroup_cached_list.mapOnProperty = usergroupCachedList
-				usergroup.mapOnProperty = usergroup
-			}
-		}
-	}
-	Visol\Beusertools\Domain\Model\BackendUserGroup {
-		mapping {
-			tableName = be_groups
-		}
-	}
-}
-
