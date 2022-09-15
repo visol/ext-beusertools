@@ -14,6 +14,9 @@ namespace Visol\Beusertools\Domain\Repository;
  *
  * The TYPO3 project - inspiring people to share!
  */
+
+use TYPO3\CMS\Core\Database\ConnectionPool;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
@@ -41,23 +44,20 @@ class BackendUserRepository extends \TYPO3\CMS\Extbase\Domain\Repository\Backend
         return $query->execute();
     }
 
-    /**
-     * @param array $usergroups
-     *
-     * @return array|QueryResultInterface
-     */
-    public function findByUsergroups($usergroups)
+    public function findByUsergroups(array $usergroups): array
     {
-        $usergroupConstraints = [];
-        foreach ($usergroups as $usergroup) {
-            $usergroupConstraints[] = 'AND FIND_IN_SET(' . $usergroup . ', usergroup) ';
-        }
-        $statement = 'SELECT * FROM be_users WHERE 1=1 ' . implode($usergroupConstraints) . BackendUtility::BEenableFields(
-                'be_users'
-            ) . BackendUtility::deleteClause('be_users') . ' ORDER BY username ASC';
-        $query = $this->createQuery();
-        $query->statement($statement);
+        $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getConnectionForTable('be_users')->createQueryBuilder();
 
-        return $query->execute(true);
+        $constraints = [];
+        foreach ($usergroups as $usergroup) {
+            $constraints[] = $queryBuilder->expr()->inSet('bu.usergroup', $queryBuilder->createNamedParameter((int)$usergroup, \PDO::PARAM_INT));
+        }
+
+        return $queryBuilder->select('*')
+            ->from('be_users', 'bu')
+            ->where($queryBuilder->expr()->and(...$constraints))
+            ->orderBy('username')
+            ->execute()
+            ->fetchAllAssociative();
     }
 }
