@@ -7,7 +7,6 @@ use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
 class BackendUser extends AbstractEntity
 {
-
     /**
      * @var ObjectStorage<BackendUserGroup>
      */
