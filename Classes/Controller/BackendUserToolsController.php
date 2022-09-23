@@ -6,6 +6,7 @@ use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use Visol\Beusertools\Domain\Repository\BackendUserGroupRepository;
 use Visol\Beusertools\Domain\Repository\BackendUserRepository;
+
 /***************************************************************
  *
  *  Copyright notice
@@ -35,7 +36,6 @@ use Visol\Beusertools\Domain\Repository\BackendUserRepository;
  */
 class BackendUserToolsController extends ActionController
 {
-
     /**
      * backendUserGroupRepository
      *
