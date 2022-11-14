@@ -31,30 +31,19 @@ use Visol\Beusertools\Domain\Repository\BackendUserRepository;
  *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
-/**
- * InvitationController
- */
+
 class BackendUserToolsController extends ActionController
 {
     /**
-     * backendUserGroupRepository
-     *
      * @var BackendUserGroupRepository
      */
     protected $backendUserGroupRepository;
 
     /**
-     * backendUserRepository
-     *
      * @var BackendUserRepository
      */
     protected $backendUserRepository;
 
-    /**
-     * action listUsersByGroup
-     *
-     * @return void
-     */
     public function listUsersByGroupAction(): ResponseInterface
     {
 
@@ -71,9 +60,6 @@ class BackendUserToolsController extends ActionController
         return $this->htmlResponse();
     }
 
-    /**
-     *
-     */
     public function exportUsersByGroupAction()
     {
 
@@ -101,11 +87,6 @@ class BackendUserToolsController extends ActionController
         exit;
     }
 
-    /**
-     * action listUsers
-     *
-     * @return void
-     */
     public function listUsersAction(): ResponseInterface
     {
         $backendUsers = $this->backendUserRepository->findAll();

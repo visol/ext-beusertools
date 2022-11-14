@@ -12,9 +12,9 @@ if (!defined('TYPO3')) {
  */
 ExtensionUtility::registerModule(
     'Beusertools',
-    'web',     // Make module a submodule of 'user'
-    'userlisting',    // Submodule key
-    '',                        // Position
+    'web',
+    'userlisting',
+    '',
     [
         BackendUserToolsController::class => 'listUsersByGroup,listUsers,exportUsersByGroup',
     ],
