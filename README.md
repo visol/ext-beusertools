@@ -1,4 +1,3 @@
-
 TYPO3 Extension "Backend User Tools"
 ====================================
 
@@ -9,3 +8,13 @@ Current features:
 * **List all users:** Listing of all backend users including all their (explicitely set) user groups.
 
 Feel free the send pull requests for useful features.
+
+## Compatibility and Maintenance
+
+This package is currently maintained for the following versions:
+
+| TYPO3 Version         | Package Version | Branch  | Maintained    |
+|-----------------------|-----------------|---------|---------------|
+| TYPO3 11.5.x          | 3.x             | master  | Yes           |
+| TYPO3 8.7.x           | 2.x             | -       | No            |
+| TYPO3 6.2.x           | 1.x             | -       | No            |
