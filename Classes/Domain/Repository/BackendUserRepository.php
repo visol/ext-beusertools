@@ -29,6 +29,7 @@ class BackendUserRepository extends Repository
                 $query->logicalOr([$query->equals('isAdministrator', true), $query->like('userName', '_cli%')])
             )
         );
+        $query->getQuerySettings()->setIgnoreEnableFields(true);
         return $query->execute();
     }
 
