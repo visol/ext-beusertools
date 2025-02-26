@@ -1,3 +1,8 @@
+## 3.1.0 (2025-02-26)
+
+[BUGFIX] Fix "list all list" exception. Add missing field mappings for be_users table
+[BUGFIX] Show disabled users in user list, move real name to first column
+
 ## 3.0.0 (2022-12-14)
 
 [TASK] Code clean up
