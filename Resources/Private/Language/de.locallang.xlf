@@ -15,13 +15,13 @@
 				<source>users</source>
 				<target>Benutzer</target>
 			</trans-unit>
+			<trans-unit id="disabled">
+				<source>disabled</source>
+				<target>deaktiviert</target>
+			</trans-unit>
 			<trans-unit id="tableHeaderUsername">
 				<source>User name</source>
 				<target>Benutzername</target>
-			</trans-unit>
-			<trans-unit id="tableHeaderRealname">
-				<source>Name</source>
-				<target>Name</target>
 			</trans-unit>
 			<trans-unit id="tableHeaderUsergroups">
 				<source>User groups</source>
@@ -35,7 +35,6 @@
 				<source>Export as Excel XML</source>
 				<target>Als Excel-XML exportieren</target>
 			</trans-unit>
-
 		</body>
 	</file>
 </xliff>

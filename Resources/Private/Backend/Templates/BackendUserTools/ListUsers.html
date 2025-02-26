@@ -6,16 +6,27 @@
     <table class="table table-striped beusertools-table">
         <thead>
         <tr>
-            <td scope="col" width="300">{f:translate(key: 'tableHeaderUsername')}</td>
-            <td scope="col">{f:translate(key: 'tableHeaderRealname')}</td>
-            <td scope="col">{f:translate(key: 'tableHeaderUsergroups')}</td>
+            <th scope="col" width="300">{f:translate(key: 'tableHeaderUsername')}</th>
+            <th scope="col">{f:translate(key: 'tableHeaderUsergroups')}</th>
+            <th scope="col">Uid</th>
         </tr>
         </thead>
         <tbody>
         <f:for each="{backendUsers}" as="user">
             <tr>
-                <td>{user.username}</td>
-                <td>{user.realName}</td>
+                <td>
+                  <f:if condition="{user.isDisabled}">
+                    <f:then>
+                      <span class="text-danger"><strong>{user.userName}</strong> ({f:translate(key: 'disabled')})</span>
+                    </f:then>
+                    <f:else>
+                      <strong>{user.userName}</strong>
+                    </f:else>
+                  </f:if>
+                  <f:if condition="{user.realName}">
+                    <f:then><br/>{user.realName}</f:then>
+                  </f:if>
+                </td>
                 <td>
                     <ul>
                         <f:for each="{user.usergroup}" as="usergroup" iteration="iterator">
@@ -23,9 +34,9 @@
                         </f:for>
                     </ul>
                 </td>
+              <td>{user.uid}</td>
             </tr>
         </f:for>
         </tbody>
     </table>
-
 </f:section>
