@@ -20,8 +20,8 @@ class BackendUser extends AbstractEntity
     // below are the "default" properties stolen from the extbase model
     /**
      * @var string
-     * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
      */
+    #[TYPO3\CMS\Extbase\Annotation\Validate(['validator' => 'NotEmpty'])]
     protected $userName = '';
 
     /**
@@ -89,7 +89,7 @@ class BackendUser extends AbstractEntity
      *
      * @param string $userName the user name to set, must not be empty
      */
-    public function setUserName($userName)
+    public function setUserName($userName): void
     {
         $this->userName = $userName;
     }
@@ -105,7 +105,7 @@ class BackendUser extends AbstractEntity
     /**
      * @param string $description
      */
-    public function setDescription($description)
+    public function setDescription($description): void
     {
         $this->description = $description;
     }
@@ -125,7 +125,7 @@ class BackendUser extends AbstractEntity
      *
      * @param bool $isAdministrator whether this user should be an administrator
      */
-    public function setIsAdministrator($isAdministrator)
+    public function setIsAdministrator($isAdministrator): void
     {
         $this->isAdministrator = $isAdministrator;
     }
@@ -145,7 +145,7 @@ class BackendUser extends AbstractEntity
      *
      * @param bool $isDisabled whether this user is disabled
      */
-    public function setIsDisabled($isDisabled)
+    public function setIsDisabled($isDisabled): void
     {
         $this->isDisabled = $isDisabled;
     }
@@ -165,7 +165,7 @@ class BackendUser extends AbstractEntity
      *
      * @param \DateTime|null $dateAndTime the start date and time
      */
-    public function setStartDateAndTime(\DateTime $dateAndTime = null)
+    public function setStartDateAndTime(\DateTime $dateAndTime = null): void
     {
         $this->startDateAndTime = $dateAndTime;
     }
@@ -185,7 +185,7 @@ class BackendUser extends AbstractEntity
      *
      * @param \DateTime|null $dateAndTime the end date and time
      */
-    public function setEndDateAndTime(\DateTime $dateAndTime = null)
+    public function setEndDateAndTime(\DateTime $dateAndTime = null): void
     {
         $this->endDateAndTime = $dateAndTime;
     }
@@ -205,7 +205,7 @@ class BackendUser extends AbstractEntity
      *
      * @param string $email the e-mail address, may be empty
      */
-    public function setEmail($email)
+    public function setEmail($email): void
     {
         $this->email = $email;
     }
@@ -225,7 +225,7 @@ class BackendUser extends AbstractEntity
      *
      * @param string $name the user's real name, may be empty.
      */
-    public function setRealName($name)
+    public function setRealName($name): void
     {
         $this->realName = $name;
     }
@@ -285,7 +285,7 @@ class BackendUser extends AbstractEntity
      *
      * @param \DateTime|null $dateAndTime this user's last login date and time
      */
-    public function setLastLoginDateAndTime(\DateTime $dateAndTime = null)
+    public function setLastLoginDateAndTime(\DateTime $dateAndTime = null): void
     {
         $this->lastLoginDateAndTime = $dateAndTime;
     }

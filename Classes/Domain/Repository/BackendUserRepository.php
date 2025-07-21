@@ -10,7 +10,14 @@ use TYPO3\CMS\Extbase\Persistence\Repository;
 
 class BackendUserRepository extends Repository
 {
-    public function initializeObject()
+    /**
+     * Constructs a new Repository
+     */
+    public function __construct(private readonly \TYPO3\CMS\Core\Database\ConnectionPool $connectionPool)
+    {
+        parent::__construct();
+    }
+    public function initializeObject(): void
     {
         $querySettings = GeneralUtility::makeInstance(Typo3QuerySettings::class);
         $querySettings->setRespectStoragePage(false);
@@ -26,7 +33,10 @@ class BackendUserRepository extends Repository
         $query = $this->createQuery();
         $query->matching(
             $query->logicalNot(
-                $query->logicalOr([$query->equals('isAdministrator', true), $query->like('userName', '_cli%')])
+                $query->logicalOr(
+                        $query->equals('isAdministrator', true),
+                        $query->like('userName', '_cli%')
+                )
             )
         );
         $query->getQuerySettings()->setIgnoreEnableFields(true);
@@ -35,18 +45,17 @@ class BackendUserRepository extends Repository
 
     public function findByUsergroups(array $usergroups): array
     {
-        $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getConnectionForTable('be_users')->createQueryBuilder();
+        $queryBuilder = $this->connectionPool->getConnectionForTable('be_users')->createQueryBuilder();
 
         $constraints = [];
         foreach ($usergroups as $usergroup) {
-            $constraints[] = $queryBuilder->expr()->inSet('bu.usergroup', $queryBuilder->createNamedParameter((int)$usergroup, \PDO::PARAM_INT));
+            $constraints[] = $queryBuilder->expr()->inSet('bu.usergroup', $queryBuilder->createNamedParameter((int)$usergroup, \TYPO3\CMS\Core\Database\Connection::PARAM_INT));
         }
 
         return $queryBuilder->select('*')
             ->from('be_users', 'bu')
             ->where($queryBuilder->expr()->and(...$constraints))
             ->orderBy('username')
-            ->execute()
             ->fetchAllAssociative();
     }
 }
