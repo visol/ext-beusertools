@@ -13,6 +13,7 @@ use TYPO3\CMS\Core\Imaging\IconSize;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\View\ViewFactoryData;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
+use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 use TYPO3\CMS\Fluid\View\FluidViewFactory;
 use Visol\Beusertools\Domain\Repository\BackendUserGroupRepository;
 use Visol\Beusertools\Domain\Repository\BackendUserRepository;
@@ -140,7 +141,7 @@ class BackendUserToolsController extends ActionController
 
         $dropDownButton->addItem(
             GeneralUtility::makeInstance(DropDownItem::class)
-                ->setLabel('listUsersByGroup') # todo replace with xlif submoduleTitle_listUsersByGroupAction
+                ->setLabel(LocalizationUtility::translate('LLL:EXT:beusertools/Resources/Private/Language/locallang.xlf:submoduleTitle_listUsersByGroupAction'))
                 ->setHref(
                     $this->uriBuilder->setArguments(
                         [
@@ -153,7 +154,7 @@ class BackendUserToolsController extends ActionController
 
         $dropDownButton->addItem(
             GeneralUtility::makeInstance(DropDownItem::class)
-                ->setLabel('listUsers') # todo replace with xlif submoduleTitle_listUsersAction
+                ->setLabel(LocalizationUtility::translate('LLL:EXT:beusertools/Resources/Private/Language/locallang.xlf:submoduleTitle_listUsersAction'))
                 ->setHref(
                     $this->uriBuilder->setArguments(
                         [
