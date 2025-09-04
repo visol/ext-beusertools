@@ -3,6 +3,10 @@
 	<file source-language="en" datatype="plaintext" original="messages" date="2014-11-07T19:45:11Z" product-name="beusertools">
 		<header/>
 		<body>
+			<trans-unit id="submoduleDropdownLabel">
+				<source>Change view</source>
+				<target>Ansicht wechseln</target>
+			</trans-unit>
 			<trans-unit id="submoduleTitle_listUsersByGroupAction">
 				<source>List users by group</source>
 				<target>Benutzerliste nach Gruppen</target>

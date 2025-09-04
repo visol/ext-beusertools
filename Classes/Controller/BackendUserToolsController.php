@@ -4,12 +4,10 @@ namespace Visol\Beusertools\Controller;
 
 use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Backend\Attribute\AsController;
-use TYPO3\CMS\Backend\Routing\UriBuilder;
 use TYPO3\CMS\Backend\Template\Components\ButtonBar;
 use TYPO3\CMS\Backend\Template\Components\Buttons\DropDown\DropDownItem;
+use TYPO3\CMS\Backend\Template\ModuleTemplate;
 use TYPO3\CMS\Backend\Template\ModuleTemplateFactory;
-use TYPO3\CMS\Core\Imaging\IconFactory;
-use TYPO3\CMS\Core\Imaging\IconSize;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\View\ViewFactoryData;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
@@ -46,21 +44,26 @@ use Visol\Beusertools\Domain\Repository\BackendUserRepository;
 #[AsController]
 class BackendUserToolsController extends ActionController
 {
+    private ModuleTemplate $moduleTemplate;
+
     protected BackendUserGroupRepository $backendUserGroupRepository;
 
     protected BackendUserRepository $backendUserRepository;
 
     public function __construct(
         protected readonly FluidViewFactory $fluidViewFactory,
-        protected readonly ModuleTemplateFactory $moduleTemplateFactory,
-        protected readonly IconFactory $iconFactory,
+        protected readonly ModuleTemplateFactory $moduleTemplateFactory
     ) {
+    }
+
+    public function initializeAction(): void
+    {
+        $this->moduleTemplate = $this->moduleTemplateFactory->create($this->request);
+        $this->setDocHeader();
     }
 
     public function listUsersByGroupAction(): ResponseInterface
     {
-        $moduleTemplate = $this->moduleTemplateFactory->create($this->request);
-        $this->setDocHeader($moduleTemplate);
         $backendUserGroups = $this->backendUserGroupRepository->findAll()->toArray();
         $backendUserGroupsWithUsers = [];
         $i = 0;
@@ -70,8 +73,8 @@ class BackendUserToolsController extends ActionController
             $backendUserGroupsWithUsers[$backendUserGroup->getUid()]['users'] = $this->backendUserRepository->findByUsergroups([$backendUserGroup->getUid()]);
             $i++;
         }
-        $moduleTemplate->assign('backendUserGroups', $backendUserGroupsWithUsers);
-        return $moduleTemplate->renderResponse('BackendUserTools/ListUsersByGroup');
+        $this->moduleTemplate->assign('backendUserGroups', $backendUserGroupsWithUsers);
+        return $this->moduleTemplate->renderResponse('BackendUserTools/ListUsersByGroup');
     }
 
     public function exportUsersByGroupAction(): void
@@ -109,11 +112,9 @@ class BackendUserToolsController extends ActionController
 
     public function listUsersAction(): ResponseInterface
     {
-        $moduleTemplate = $this->moduleTemplateFactory->create($this->request);
-        $this->setDocHeader($moduleTemplate);
         $backendUsers = $this->backendUserRepository->findAll();
-        $moduleTemplate->assign('backendUsers', $backendUsers);
-        return $moduleTemplate->renderResponse('BackendUserTools/ListUsers');
+        $this->moduleTemplate->assign('backendUsers', $backendUsers);
+        return $this->moduleTemplate->renderResponse('BackendUserTools/ListUsers');
     }
 
     public function injectBackendUserGroupRepository(BackendUserGroupRepository $backendUserGroupRepository): void
@@ -126,18 +127,15 @@ class BackendUserToolsController extends ActionController
         $this->backendUserRepository = $backendUserRepository;
     }
 
-    /**
-     * @param \TYPO3\CMS\Backend\Template\ModuleTemplate $moduleTemplate
-     * @return void
-     */
-    public function setDocHeader(\TYPO3\CMS\Backend\Template\ModuleTemplate $moduleTemplate): void
+    public function setDocHeader(): void
     {
-        $buttonBar = $moduleTemplate->getDocHeaderComponent()->getButtonBar();
-        $dropDownButton = $buttonBar->makeDropDownButton()
-            ->setLabel('Dropdown')
-            ->setTitle('Save')
-            ->setIcon($this->iconFactory->getIcon('actions-extension-import'))
-            ->setShowLabelText('show label text');
+        $buttonBar = $this->moduleTemplate->getDocHeaderComponent()->getButtonBar();
+        $dropdownLabel = LocalizationUtility::translate(
+            'LLL:EXT:beusertools/Resources/Private/Language/locallang.xlf:submoduleDropdownLabel'
+        );
+        $dropDownButton = $buttonBar->makeDropDownButton()->setLabel($dropdownLabel)->setTitle(
+            $dropdownLabel
+        )->setShowLabelText($dropdownLabel);
 
         $dropDownButton->addItem(
             GeneralUtility::makeInstance(DropDownItem::class)
