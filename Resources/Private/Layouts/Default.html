@@ -1,9 +1,8 @@
-<f:be.container includeCssFiles="{0: '{f:uri.resource(path: \'Stylesheets/backend.css\')}'}">
+<f:be.pageRenderer includeCssFiles="{0: '{f:uri.resource(path: \'Stylesheets/backend.css\')}'}">
 	<div class="typo3-fullDoc">
 		<div id="typo3-docheader">
 			<div class="typo3-docheader-functions">
 				<div class="left">
-					<f:be.buttons.csh />
 					<f:be.menus.actionMenu>
 						<f:be.menus.actionMenuItem label="{f:translate(key: 'submoduleTitle_listUsersByGroupAction')}" controller="BackendUserTools" action="listUsersByGroup" />
 						<f:be.menus.actionMenuItem label="{f:translate(key: 'submoduleTitle_listUsersAction')}" controller="BackendUserTools" action="listUsers" />
@@ -17,7 +16,7 @@
 					<f:comment><f:render section="iconButtons" /></f:comment>
 				</div>
 				<div class="right">
-					<f:be.buttons.shortcut />
+          test
 				</div>
 			</div>
 		</div>
@@ -27,4 +26,4 @@
 			</div>
 		</div>
 	</div>
-</f:be.container>
+</f:be.pageRenderer>

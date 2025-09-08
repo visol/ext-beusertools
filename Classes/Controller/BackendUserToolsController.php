@@ -3,7 +3,16 @@
 namespace Visol\Beusertools\Controller;
 
 use Psr\Http\Message\ResponseInterface;
+use TYPO3\CMS\Backend\Attribute\AsController;
+use TYPO3\CMS\Backend\Template\Components\ButtonBar;
+use TYPO3\CMS\Backend\Template\Components\Buttons\DropDown\DropDownItem;
+use TYPO3\CMS\Backend\Template\ModuleTemplate;
+use TYPO3\CMS\Backend\Template\ModuleTemplateFactory;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\View\ViewFactoryData;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
+use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
+use TYPO3\CMS\Fluid\View\FluidViewFactory;
 use Visol\Beusertools\Domain\Repository\BackendUserGroupRepository;
 use Visol\Beusertools\Domain\Repository\BackendUserRepository;
 
@@ -32,21 +41,29 @@ use Visol\Beusertools\Domain\Repository\BackendUserRepository;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
+#[AsController]
 class BackendUserToolsController extends ActionController
 {
-    /**
-     * @var BackendUserGroupRepository
-     */
-    protected $backendUserGroupRepository;
+    private ModuleTemplate $moduleTemplate;
 
-    /**
-     * @var BackendUserRepository
-     */
-    protected $backendUserRepository;
+    protected BackendUserGroupRepository $backendUserGroupRepository;
+
+    protected BackendUserRepository $backendUserRepository;
+
+    public function __construct(
+        protected readonly FluidViewFactory $fluidViewFactory,
+        protected readonly ModuleTemplateFactory $moduleTemplateFactory
+    ) {
+    }
+
+    public function initializeAction(): void
+    {
+        $this->moduleTemplate = $this->moduleTemplateFactory->create($this->request);
+        $this->setDocHeader();
+    }
 
     public function listUsersByGroupAction(): ResponseInterface
     {
-
         $backendUserGroups = $this->backendUserGroupRepository->findAll()->toArray();
         $backendUserGroupsWithUsers = [];
         $i = 0;
@@ -56,12 +73,17 @@ class BackendUserToolsController extends ActionController
             $backendUserGroupsWithUsers[$backendUserGroup->getUid()]['users'] = $this->backendUserRepository->findByUsergroups([$backendUserGroup->getUid()]);
             $i++;
         }
-        $this->view->assign('backendUserGroups', $backendUserGroupsWithUsers);
-        return $this->htmlResponse();
+        $this->moduleTemplate->assign('backendUserGroups', $backendUserGroupsWithUsers);
+        return $this->moduleTemplate->renderResponse('BackendUserTools/ListUsersByGroup');
     }
 
-    public function exportUsersByGroupAction()
+    public function exportUsersByGroupAction(): void
     {
+        $viewData = new ViewFactoryData(
+            templatePathAndFilename: 'EXT:beusertools/Resources/Private/Templates/Default/BackendUserTools/ExportUsersByGroup.html',
+            format: 'xml',
+        );
+        $view = $this->fluidViewFactory->create($viewData);
 
         $backendUserGroups = $this->backendUserGroupRepository->findAll()->toArray();
         $backendUserGroupsWithUsers = [];
@@ -72,8 +94,9 @@ class BackendUserToolsController extends ActionController
             $backendUserGroupsWithUsers[$backendUserGroup->getUid()]['users'] = $this->backendUserRepository->findByUsergroups([$backendUserGroup->getUid()]);
             $i++;
         }
-        $this->view->assign('backendUserGroups', $backendUserGroupsWithUsers);
-        $content = $this->view->render();
+
+        $view->assign('backendUserGroups', $backendUserGroupsWithUsers);
+        $content = $view->render();
 
         header('Content-Description: File Transfer');
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
@@ -90,8 +113,8 @@ class BackendUserToolsController extends ActionController
     public function listUsersAction(): ResponseInterface
     {
         $backendUsers = $this->backendUserRepository->findAll();
-        $this->view->assign('backendUsers', $backendUsers);
-        return $this->htmlResponse();
+        $this->moduleTemplate->assign('backendUsers', $backendUsers);
+        return $this->moduleTemplate->renderResponse('BackendUserTools/ListUsers');
     }
 
     public function injectBackendUserGroupRepository(BackendUserGroupRepository $backendUserGroupRepository): void
@@ -102,5 +125,44 @@ class BackendUserToolsController extends ActionController
     public function injectBackendUserRepository(BackendUserRepository $backendUserRepository): void
     {
         $this->backendUserRepository = $backendUserRepository;
+    }
+
+    public function setDocHeader(): void
+    {
+        $buttonBar = $this->moduleTemplate->getDocHeaderComponent()->getButtonBar();
+        $dropdownLabel = LocalizationUtility::translate(
+            'LLL:EXT:beusertools/Resources/Private/Language/locallang.xlf:submoduleDropdownLabel'
+        );
+        $dropDownButton = $buttonBar->makeDropDownButton()->setLabel($dropdownLabel)->setTitle(
+            $dropdownLabel
+        )->setShowLabelText($dropdownLabel);
+
+        $dropDownButton->addItem(
+            GeneralUtility::makeInstance(DropDownItem::class)
+                ->setLabel(LocalizationUtility::translate('LLL:EXT:beusertools/Resources/Private/Language/locallang.xlf:submoduleTitle_listUsersByGroupAction'))
+                ->setHref(
+                    $this->uriBuilder->setArguments(
+                        [
+                            'controller' => 'BackendUserTools',
+                            'action' => 'listUsersByGroup',
+                        ]
+                    )->buildBackendUri()
+                )
+        );
+
+        $dropDownButton->addItem(
+            GeneralUtility::makeInstance(DropDownItem::class)
+                ->setLabel(LocalizationUtility::translate('LLL:EXT:beusertools/Resources/Private/Language/locallang.xlf:submoduleTitle_listUsersAction'))
+                ->setHref(
+                    $this->uriBuilder->setArguments(
+                        [
+                            'controller' => 'BackendUserTools',
+                            'action' => 'listUsers',
+                        ]
+                    )->buildBackendUri()
+                )
+        );
+
+        $buttonBar->addButton($dropDownButton, ButtonBar::BUTTON_POSITION_LEFT, 2);
     }
 }
